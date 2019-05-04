@@ -1,12 +1,10 @@
 package br.com.beblue.desafio.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -14,15 +12,14 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
-public class GeneroMusical {
+public class Disco {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    
-    @OneToMany(mappedBy = "id.generoMusical")
-    private List<Cashback> cashback =  new ArrayList();
+    private GeneroMusical genero;
+    private BigDecimal preco;
 
     public Long getId() {
         return id;
@@ -40,12 +37,20 @@ public class GeneroMusical {
         this.nome = nome;
     }
 
-    public List<Cashback> getCashback() {
-        return cashback;
+    public GeneroMusical getGenero() {
+        return genero;
     }
 
-    public void setCashback(List<Cashback> cashback) {
-        this.cashback = cashback;
+    public void setGenero(GeneroMusical genero) {
+        this.genero = genero;
     }
-       
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+        
 }

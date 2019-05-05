@@ -12,18 +12,17 @@ import javax.persistence.ManyToOne;
  *
  * @author henri
  */
-
 @Entity
-public class Disco {
-    
+public class VendaDisco {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     @ManyToOne
     @JoinColumn(updatable = false)
-    private GeneroMusical generoMusical;
-    private BigDecimal preco;
+    private Disco disco;
+    private BigDecimal valorPago;
+    private BigDecimal valorCashback;
 
     public Long getId() {
         return id;
@@ -33,29 +32,28 @@ public class Disco {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public BigDecimal getValorPago() {
+        return valorPago;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public BigDecimal getPreco() {
-        return preco;
+    public void setValorPago(BigDecimal valorPago) {
+        this.valorPago = valorPago;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public BigDecimal getValorCashback() {
+        return valorCashback;
     }
 
-    public GeneroMusical getGeneroMusical() {
-        return generoMusical;
+    public void setValorCashback(BigDecimal valorCashback) {
+        this.valorCashback = valorCashback;
     }
 
-    public void setGeneroMusical(GeneroMusical generoMusical) {
-        this.generoMusical = generoMusical;
+    public Disco getDisco() {
+        return disco;
     }
-    
-        
+
+    public void setDisco(Disco disco) {
+        this.disco = disco;
+    }
+
 }

@@ -23,6 +23,7 @@ public class GeneroMusical {
     
     @OneToMany(mappedBy = "id.generoMusical")
     private List<Cashback> cashback =  new ArrayList();
+   
 
     public Long getId() {
         return id;

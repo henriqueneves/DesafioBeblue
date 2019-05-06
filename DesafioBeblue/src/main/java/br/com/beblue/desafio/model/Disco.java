@@ -1,5 +1,6 @@
 package br.com.beblue.desafio.model;
 
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,14 @@ public class Disco {
     @JoinColumn(updatable = false)
     private GeneroMusical generoMusical;
     private BigDecimal preco;
+    
+    
+     public Disco() {
+     }
+
+    public Disco(AlbumSimplified album) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public Long getId() {
         return id;
@@ -55,6 +64,10 @@ public class Disco {
 
     public void setGeneroMusical(GeneroMusical generoMusical) {
         this.generoMusical = generoMusical;
+    }
+    
+    public void transformaEmDiscoComPrecoAleatorio(AlbumSimplified album){
+        
     }
     
         

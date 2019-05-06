@@ -9,6 +9,7 @@ import br.com.beblue.desafio.exception.dados.DuplicateDataException;
 import br.com.beblue.desafio.exception.sistema.NotFoundException;
 import br.com.beblue.desafio.model.Disco;
 import br.com.beblue.desafio.repository.DiscoRepository;
+import br.com.beblue.desafio.repository.GeneroMusicalRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,12 @@ public class DiscoService implements CrudService<Disco>{
     private DiscoRepository discoRepository;
     
     @Autowired
+    private GeneroMusicalRepository generoMusicalRepository;
+    
+    @Autowired
     private SpotifyService spotifyService;
+    
+    
     
     @Value("${discos.importador.quantidade}")
     private Integer quantidadeDiscos;
@@ -67,8 +73,8 @@ public class DiscoService implements CrudService<Disco>{
         throw new NotFoundException("Cidade não cadastrada no sistema");
     }
     
-    public String importarDiscos(){
-        spotifyService.importarDiscosPorGeneroEQuantidade(null, quantidadeDiscos);
+    public String importarDiscos(){      
+        spotifyService.importarDiscosPorGeneroEQuantidade(generoMusicalRepository.findAll(), quantidadeDiscos);
         return "";
     }
     

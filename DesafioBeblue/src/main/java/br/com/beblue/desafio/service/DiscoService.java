@@ -9,6 +9,7 @@ import br.com.beblue.desafio.exception.SystemRuntimeException;
 import br.com.beblue.desafio.exception.dados.DuplicateDataException;
 import br.com.beblue.desafio.exception.sistema.NotFoundException;
 import br.com.beblue.desafio.model.Disco;
+import br.com.beblue.desafio.model.GeneroMusical;
 import br.com.beblue.desafio.repository.DiscoRepository;
 import br.com.beblue.desafio.repository.GeneroMusicalRepository;
 import java.util.List;
@@ -16,7 +17,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -33,6 +37,9 @@ public class DiscoService implements CrudService<Disco> {
 
     @Autowired
     private SpotifyService spotifyService;
+
+    @Autowired
+    private GeneroMusicalService generoMusicalService;
 
     @Value("${discos.importador.quantidade}")
     private Integer quantidadeDiscos;
@@ -60,15 +67,15 @@ public class DiscoService implements CrudService<Disco> {
         return (List) discoRepository.findAll();
     }
 
-    @Override
-    public Disco carregar(Disco disco) {
-        return find(disco);
-    }
-
-    public Disco find(Disco disco) {
+    public Disco procurar(Disco disco) {
         Optional<Disco> discoOptional = discoRepository.findById(disco.getId());
 
         throw new NotFoundException("Disco não cadastrado no sistema");
+    }
+
+    public Page<Disco> buscarPorGenero(String genero, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "nome");
+        return discoRepository.buscarPorGenero(generoMusicalService.buscarPorNome(genero.toUpperCase()), pageRequest);
     }
 
     public String importarDiscos() {

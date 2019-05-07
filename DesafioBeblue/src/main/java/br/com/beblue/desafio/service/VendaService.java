@@ -2,11 +2,13 @@ package br.com.beblue.desafio.service;
 
 import br.com.beblue.desafio.model.Venda;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author henri
  */
+@Service
 public class VendaService implements CrudService<Venda>  {
 
     @Override
@@ -23,14 +25,9 @@ public class VendaService implements CrudService<Venda>  {
     public List<Venda> visualizarTodos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public Venda carregar(Venda model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Venda find(Venda model) {
+    public Venda procurar(Venda model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -1,8 +1,11 @@
 package br.com.beblue.desafio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,18 +15,17 @@ import javax.persistence.OneToMany;
  *
  * @author henri
  */
-
 @Entity
 public class GeneroMusical {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    
+
     @OneToMany(mappedBy = "id.generoMusical")
-    private List<Cashback> cashback =  new ArrayList();
-   
+    @JsonIgnore
+    private List<Cashback> cashback = new ArrayList();
 
     public Long getId() {
         return id;
@@ -48,5 +50,5 @@ public class GeneroMusical {
     public void setCashback(List<Cashback> cashback) {
         this.cashback = cashback;
     }
-       
+
 }

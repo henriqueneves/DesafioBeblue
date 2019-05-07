@@ -7,15 +7,13 @@ import org.springframework.stereotype.Service;
  *
  * @author henri
  */
+
 @Service
 public interface CrudService<Model> {
-
+    
     public void novo(Model model);
     public void editar(Model model);
-
     public List<Model> visualizarTodos();
+    public Model procurar(Model model);
     
-    public Model carregar(Model model);
-    
-    public Model find(Model model);
 }

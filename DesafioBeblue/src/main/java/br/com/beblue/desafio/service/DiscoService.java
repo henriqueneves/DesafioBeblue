@@ -5,6 +5,7 @@
  */
 package br.com.beblue.desafio.service;
 
+import br.com.beblue.desafio.exception.SystemRuntimeException;
 import br.com.beblue.desafio.exception.dados.DuplicateDataException;
 import br.com.beblue.desafio.exception.sistema.NotFoundException;
 import br.com.beblue.desafio.model.Disco;
@@ -21,21 +22,18 @@ import org.springframework.stereotype.Service;
  *
  * @author henri
  */
-
 @Service
-public class DiscoService implements CrudService<Disco>{
+public class DiscoService implements CrudService<Disco> {
 
     @Autowired
     private DiscoRepository discoRepository;
-    
+
     @Autowired
     private GeneroMusicalRepository generoMusicalRepository;
-    
+
     @Autowired
     private SpotifyService spotifyService;
-    
-    
-    
+
     @Value("${discos.importador.quantidade}")
     private Integer quantidadeDiscos;
 
@@ -44,7 +42,7 @@ public class DiscoService implements CrudService<Disco>{
         try {
             discoRepository.save(disco);
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicateDataException("Outra cidade com mesmo nome e estado já foi cadastrada.");
+            throw new DuplicateDataException("Outro disco com mesmo código já foi cadastrado.");
         }
     }
 
@@ -53,7 +51,7 @@ public class DiscoService implements CrudService<Disco>{
         try {
             discoRepository.save(disco);
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicateDataException("Outra cidade com mesmo nome e estado já foi cadastrada.");
+            throw new DuplicateDataException("Outro disco com mesmo código já foi cadastrado.");
         }
     }
 
@@ -68,14 +66,19 @@ public class DiscoService implements CrudService<Disco>{
     }
 
     public Disco find(Disco disco) {
-        Optional<Disco> cidadeOptional = discoRepository.findById(disco.getId());
+        Optional<Disco> discoOptional = discoRepository.findById(disco.getId());
 
-        throw new NotFoundException("Cidade não cadastrada no sistema");
+        throw new NotFoundException("Disco não cadastrado no sistema");
     }
-    
-    public String importarDiscos(){      
-        spotifyService.importarDiscosPorGeneroEQuantidade(generoMusicalRepository.findAll(), quantidadeDiscos);
-        return "";
+
+    public String importarDiscos() {
+        try {
+            List<Disco> discos = spotifyService.getDiscosPorGeneroEQuantidade(generoMusicalRepository.findAll(), quantidadeDiscos);
+            discoRepository.saveAll(discos);
+            return "Sucesso ao importar e salvar " + discos.size() + " discos.";
+        } catch (Exception e) {
+            throw new SystemRuntimeException("Erro ao importar os discos: " + e.getMessage());
+        }
     }
-    
+
 }

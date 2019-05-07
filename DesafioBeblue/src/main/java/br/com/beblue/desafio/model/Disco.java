@@ -2,6 +2,8 @@ package br.com.beblue.desafio.model;
 
 import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import java.math.BigDecimal;
+import java.util.Random;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +15,9 @@ import javax.persistence.ManyToOne;
  *
  * @author henri
  */
-
 @Entity
 public class Disco {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,13 +26,14 @@ public class Disco {
     @JoinColumn(updatable = false)
     private GeneroMusical generoMusical;
     private BigDecimal preco;
-    
-    
-     public Disco() {
-     }
 
-    public Disco(AlbumSimplified album) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Disco() {
+    }
+
+    public Disco(AlbumSimplified album, GeneroMusical generoMusical) {
+        this.nome = album.getName();
+        this.generoMusical = generoMusical;
+        this.preco = geraPrecoAleatorio();
     }
 
     public Long getId() {
@@ -49,7 +51,7 @@ public class Disco {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public BigDecimal getPreco() {
         return preco;
     }
@@ -65,10 +67,13 @@ public class Disco {
     public void setGeneroMusical(GeneroMusical generoMusical) {
         this.generoMusical = generoMusical;
     }
-    
-    public void transformaEmDiscoComPrecoAleatorio(AlbumSimplified album){
-        
+
+    public void transformaEmDiscoComPrecoAleatorio(AlbumSimplified album) {
+
     }
-    
-        
+
+    private BigDecimal geraPrecoAleatorio() {
+        return new BigDecimal((new Random().nextDouble() * 99) + 1);
+    }
+
 }

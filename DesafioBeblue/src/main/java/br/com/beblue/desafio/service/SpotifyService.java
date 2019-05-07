@@ -23,20 +23,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpotifyService {
 
-    private static final String clientId = "98435399fdb94597b2d893648a9b8cbc";
-    private static final String clientSecret = "0981742c5d2f4f88aa41f28058ea4cc6";
+    @Value("${spotify.api.client-id}")
+    private String clientId;
+    @Value("${spotify.api.cliente-secret}")
+    private String clientSecret;
 
-    private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
-            .build();
+    private SpotifyApi spotifyApi;
+    private ClientCredentialsRequest clientCredentialsRequest;
 
-    private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
-            .build();
+    public void credenciarEGerarToken() {
 
-    public static void credenciarEGerarToken() {
         try {
-            final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+            spotifyApi = new SpotifyApi.Builder()
+                    .setClientId(clientId)
+                    .setClientSecret(clientSecret)
+                    .build();
+            
+            clientCredentialsRequest = spotifyApi.clientCredentials()
+                    .build();
+            
+            ClientCredentials clientCredentials = clientCredentialsRequest.execute();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             System.out.println("Expira em: " + clientCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException e) {
@@ -58,15 +64,15 @@ public class SpotifyService {
         return null;
     }
 
-    public void importarDiscosPorGeneroEQuantidade(Iterable<GeneroMusical> generosMusicais, Integer quantidade) {
+    public List<Disco> getDiscosPorGeneroEQuantidade(Iterable<GeneroMusical> generosMusicais, Integer quantidade) {
+        List<Disco> listaDiscos = new ArrayList();
         credenciarEGerarToken();
         for (GeneroMusical generoMusical : generosMusicais) {
-            List<Disco> listaDiscos = new ArrayList();
-            for(AlbumSimplified album : buscarAlbuns(generoMusical.getNome(), quantidade)){
-                listaDiscos.add(new Disco(album));
+            for (AlbumSimplified album : buscarAlbuns(generoMusical.getNome(), quantidade)) {
+                listaDiscos.add(new Disco(album, generoMusical));
             }
         }
-
+        return listaDiscos;
     }
 
 }

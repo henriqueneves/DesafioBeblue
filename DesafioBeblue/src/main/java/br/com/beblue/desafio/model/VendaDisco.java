@@ -23,6 +23,15 @@ public class VendaDisco {
     private Disco disco;
     private BigDecimal valorPago;
     private BigDecimal valorCashback;
+    
+    public VendaDisco(){
+        
+    }
+    
+    public VendaDisco(Disco disco){
+        this.disco = disco;
+        this.valorPago = disco.getPreco();
+    }
 
     public Long getId() {
         return id;

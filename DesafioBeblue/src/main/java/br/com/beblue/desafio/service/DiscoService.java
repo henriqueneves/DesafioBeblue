@@ -44,18 +44,10 @@ public class DiscoService implements CrudService<Disco> {
         try {
             discoRepository.save(disco);
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicateDataException("Outro disco com mesmo código já foi cadastrado.");
+            throw new DuplicateDataException("Erro ao criar disco: outro disco com mesmo código já foi cadastrado.");
         }
     }
 
-    @Override
-    public void editar(Disco disco) {
-        try {
-            discoRepository.save(disco);
-        } catch (DataIntegrityViolationException e) {
-            throw new DuplicateDataException("Outro disco com mesmo código já foi cadastrado.");
-        }
-    }
 
     @Override
     public List<Disco> visualizarTodos() {

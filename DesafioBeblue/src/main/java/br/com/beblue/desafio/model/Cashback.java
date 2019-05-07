@@ -1,10 +1,5 @@
 package br.com.beblue.desafio.model;
 
-import java.math.BigDecimal;
-import java.time.DayOfWeek;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 

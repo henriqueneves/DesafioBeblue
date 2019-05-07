@@ -3,7 +3,6 @@ package br.com.beblue.desafio.model;
 import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import java.math.BigDecimal;
 import java.util.Random;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

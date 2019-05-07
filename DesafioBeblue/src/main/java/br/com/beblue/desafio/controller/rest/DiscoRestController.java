@@ -1,9 +1,7 @@
 package br.com.beblue.desafio.controller.rest;
 
 import br.com.beblue.desafio.model.Disco;
-import br.com.beblue.desafio.model.GeneroMusical;
 import br.com.beblue.desafio.service.DiscoService;
-import br.com.beblue.desafio.service.GeneroMusicalService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +27,7 @@ public class DiscoRestController {
     }
 
     @GetMapping("/buscar")
-    public Page<Disco> search(
+    public Page<Disco> buscar(
             @RequestParam("genero") String genero,
             @RequestParam(value = "pagina", required = false, defaultValue = "0") int page,
             @RequestParam(value = "tamanho", required = false, defaultValue = "10") int size) {
@@ -37,10 +35,14 @@ public class DiscoRestController {
 
     }
     
-     @GetMapping
+    @GetMapping("/buscar/{id}")
+    public Disco buscarPorId(Disco disco){
+        return discoService.procurar(disco);
+    }
+    
+    @GetMapping
     public List<Disco> buscarTodos() {
         return discoService.visualizarTodos();
-
     }
     
 }

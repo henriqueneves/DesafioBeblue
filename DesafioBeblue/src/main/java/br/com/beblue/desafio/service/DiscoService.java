@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -40,6 +41,7 @@ public class DiscoService implements CrudService<Disco> {
     private Integer quantidadeDiscos;
 
     @Override
+    @Transactional
     public void novo(Disco disco) {
         try {
             discoRepository.save(disco);
@@ -47,7 +49,6 @@ public class DiscoService implements CrudService<Disco> {
             throw new DuplicateDataException("Erro ao criar disco: outro disco com mesmo código já foi cadastrado.");
         }
     }
-
 
     @Override
     public List<Disco> visualizarTodos() {
@@ -67,6 +68,7 @@ public class DiscoService implements CrudService<Disco> {
         return discoRepository.buscarPorGenero(generoMusicalService.buscarPorNome(genero.toUpperCase()), pageRequest);
     }
 
+    @Transactional
     public String importarDiscos() {
         try {
             List<Disco> discos = spotifyService.getDiscosPorGeneroEQuantidade(generoMusicalRepository.findAll(), quantidadeDiscos);

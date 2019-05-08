@@ -21,11 +21,13 @@ public class DiscoRestController {
     @Autowired
     private DiscoService discoService;
     
+    /* Importa os discos através da API do Spotify */
     @GetMapping("importar")
     public String importarDiscos() {
         return discoService.importarDiscos();
     }
 
+    /* Busca de forma paginada os discos cadastrados no sistema, filtrando por genero e ordenando por título */
     @GetMapping("/buscar")
     public Page<Disco> buscar(
             @RequestParam("genero") String genero,
@@ -35,11 +37,13 @@ public class DiscoRestController {
 
     }
     
+    /* Busca um único disco pelo seu identificador */
     @GetMapping("/buscar/{id}")
     public Disco buscarPorId(Disco disco){
         return discoService.procurar(disco);
     }
     
+    /* Retorna todos os discos */
     @GetMapping
     public List<Disco> buscarTodos() {
         return discoService.visualizarTodos();

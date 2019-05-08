@@ -1,10 +1,10 @@
 package br.com.beblue.desafio.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,19 +15,18 @@ import javax.persistence.OneToMany;
  *
  * @author henri
  */
-
 @Entity
 public class Venda {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<VendaDisco> vendaDiscos = new ArrayList();
     private BigDecimal valorTotal;
     private BigDecimal cashbackTotal;
     private Date registroDaVenda;
-  
+
     public Long getId() {
         return id;
     }
@@ -58,7 +57,7 @@ public class Venda {
 
     public void setRegistroDaVenda(Date registroDaVenda) {
         this.registroDaVenda = registroDaVenda;
-    } 
+    }
 
     public List<VendaDisco> getVendaDiscos() {
         return vendaDiscos;
@@ -67,25 +66,22 @@ public class Venda {
     public void setVendaDiscos(List<VendaDisco> vendaDiscos) {
         this.vendaDiscos = vendaDiscos;
     }
-    
-    private void calculaCashbackTotal(){
-        BigDecimal cashbackTotal = new BigDecimal(0);
-        this.vendaDiscos.forEach(
-            n -> cashbackTotal.add(n.getValorCashback())
-        );
-        this.cashbackTotal = cashbackTotal;
+
+    private void calculaCashbackTotal() {
+        this.cashbackTotal = this.vendaDiscos.stream().map(
+                n -> n.getValorCashback()
+        ).reduce(BigDecimal::add).get();
     }
-    
-    private void calculaValorTotal(){
-        BigDecimal valorTotal = new BigDecimal(0);
-        this.vendaDiscos.forEach(
-            n -> valorTotal.add(n.getValorPago())
-        );
+
+    private void calculaValorTotal() {
+        this.valorTotal = this.vendaDiscos.stream().map(
+                n -> n.getValorPago()
+        ).reduce(BigDecimal::add).get();
     }
-    
-    public void calcularValores(){
+
+    public void calcularValores() {
         calculaCashbackTotal();
         calculaValorTotal();
     }
-    
+
 }

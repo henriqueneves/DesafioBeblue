@@ -1,15 +1,12 @@
 package br.com.beblue.desafio.controller.rest;
 
 import br.com.beblue.desafio.dto.ResponseDTO;
-import br.com.beblue.desafio.model.Disco;
 import br.com.beblue.desafio.model.Venda;
-import br.com.beblue.desafio.model.VendaDisco;
 import br.com.beblue.desafio.service.VendaService;
 import br.com.beblue.desafio.util.messages.MensagemError;
 import br.com.beblue.desafio.util.messages.Messages;
 import br.com.beblue.desafio.util.TryCatchDefaultRest;
 import br.com.beblue.desafio.validator.VendaValidator;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -64,19 +61,10 @@ public class VendaRestController {
                 .execute(() -> vendaService.novo(venda));
     }
 
-    /* Gera 20 vendas automaticamente */ 
+    /* Retorna todas as vendas */
     @GetMapping
-    public String gerarVendas() {
-        Venda venda = new Venda();
-        VendaDisco vd1 = new VendaDisco();
-        Disco d1 = new Disco();
-        d1.setId(new Long(2));
-        vd1.setDisco(d1);
-        List<VendaDisco> lvd = new ArrayList();
-        lvd.add(vd1);
-        venda.setVendaDiscos(lvd);
-        vendaService.novo(venda);
-        return "Sucesso! Vendas geradas.";
+    public List<Venda> buscarTodos() {
+        return vendaService.visualizarTodos();
     }
 
     /* Busca vendas filtrando e ordenando por data */

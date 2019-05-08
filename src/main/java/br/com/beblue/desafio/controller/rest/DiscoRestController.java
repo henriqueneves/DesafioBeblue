@@ -27,7 +27,7 @@ public class DiscoRestController {
     /* Importa os discos através da API do Spotify */
     @GetMapping("importar")
     public ResponseEntity<ResponseDTO> importarDiscos() {
-        return new TryCatchDefaultRest(null, "Importação realizada com sucesso.")
+        return new TryCatchDefaultRest("Importação realizada com sucesso.")
                 .execute(() -> discoService.importarDiscos());
     }
 

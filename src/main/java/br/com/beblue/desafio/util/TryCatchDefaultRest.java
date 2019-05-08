@@ -12,12 +12,16 @@ import org.springframework.http.ResponseEntity;
  * @author henri
  */
 public class TryCatchDefaultRest {
-    
+
     private Object data;
     private String successMessage;
 
     public TryCatchDefaultRest(Object data, String successMessage) {
         this.data = data;
+        this.successMessage = successMessage;
+    }
+
+    public TryCatchDefaultRest(String successMessage) {
         this.successMessage = successMessage;
     }
 
@@ -46,5 +50,5 @@ public class TryCatchDefaultRest {
     public void setData(Object data) {
         this.data = data;
     }
-    
+
 }

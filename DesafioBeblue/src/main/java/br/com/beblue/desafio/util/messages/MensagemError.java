@@ -1,4 +1,4 @@
-package br.com.beblue.desafio.util.Messages;
+package br.com.beblue.desafio.util.messages;
 
 /**
  *

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CrudService<Model> {
     
-    public void novo(Model model);
+    public Model novo(Model model);
+    //editar -> não necessário
+    //deletar -> não necessário
     public List<Model> visualizarTodos();
     public Model procurar(Model model);
     

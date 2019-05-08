@@ -1,7 +1,7 @@
 package br.com.beblue.desafio.util;
 
-import br.com.beblue.desafio.util.Messages.MensagemSuccess;
-import br.com.beblue.desafio.util.Messages.MensagemError;
+import br.com.beblue.desafio.util.messages.MensagemSuccess;
+import br.com.beblue.desafio.util.messages.MensagemError;
 import br.com.beblue.desafio.dto.ResponseDTO;
 import br.com.beblue.desafio.exception.SystemRuntimeException;
 import org.springframework.http.HttpStatus;

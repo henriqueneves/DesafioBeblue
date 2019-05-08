@@ -39,12 +39,14 @@ public class VendaService implements CrudService<Venda> {
 
     @Override
     @Transactional
-    public void novo(Venda venda) {
+    public Venda novo(Venda venda) {
         try {
             venda.setRegistroDaVenda(new Date());
             venda.setVendaDiscos(calculaCashbackIndividual(venda));
             venda.calcularValores();
+            venda.setVendaDiscoReferencia();
             vendaRepository.save(venda);
+            return venda;
         } catch (Exception e) {
             throw new SystemRuntimeException("Erro ao salvar nova venda: " + e.getMessage());
         }
@@ -57,8 +59,8 @@ public class VendaService implements CrudService<Venda> {
 
     @Override
     public Venda procurar(Venda venda) {
-         Optional<Venda> vendaOptional = vendaRepository.findById(venda.getId());
-        if(vendaOptional.isPresent()){
+        Optional<Venda> vendaOptional = vendaRepository.findById(venda.getId());
+        if (vendaOptional.isPresent()) {
             return vendaOptional.get();
         }
         throw new NotFoundException("Venda não cadastrada no sistema");
@@ -78,9 +80,10 @@ public class VendaService implements CrudService<Venda> {
         Cashback cashback = cashbackRepository.buscarPorGenero(disco.getGeneroMusical(), new DatasUtil().pegaDiaDaSemana(data));
         return disco.getPreco().multiply(new BigDecimal(cashback.getPorcentagem()).divide(new BigDecimal(100)));
     }
-    
-    public Page<Venda> buscarPorData(Date dataInicio, Date dataFim,  int page, int size){
+
+    public Page<Venda> buscarPorData(Date dataInicio, Date dataFim, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.DESC, "registroDaVenda");
         return vendaRepository.buscarPorData(dataInicio, dataFim, pageRequest);
     }
+    
 }

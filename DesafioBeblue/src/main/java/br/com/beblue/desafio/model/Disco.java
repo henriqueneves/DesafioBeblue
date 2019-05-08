@@ -1,14 +1,19 @@
 package br.com.beblue.desafio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,8 +30,15 @@ public class Disco {
     @JoinColumn(updatable = false)
     private GeneroMusical generoMusical;
     private BigDecimal preco;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "disco")
+    @JsonIgnore
+    private List<VendaDisco> vendaDiscos = new ArrayList();
 
     public Disco() {
+    }
+    
+    public Disco(Long id) {
+        this.id = id;
     }
 
     public Disco(AlbumSimplified album, GeneroMusical generoMusical) {

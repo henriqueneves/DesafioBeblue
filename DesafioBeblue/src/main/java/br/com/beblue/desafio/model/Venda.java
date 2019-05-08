@@ -21,7 +21,7 @@ public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venda")
     private List<VendaDisco> vendaDiscos = new ArrayList();
     private BigDecimal valorTotal;
     private BigDecimal cashbackTotal;
@@ -82,6 +82,10 @@ public class Venda {
     public void calcularValores() {
         calculaCashbackTotal();
         calculaValorTotal();
+    }
+    
+    public void setVendaDiscoReferencia(){
+        this.vendaDiscos.forEach( n -> n.setVenda(this));
     }
 
 }

@@ -1,5 +1,6 @@
 package br.com.beblue.desafio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,9 @@ public class VendaDisco {
     private Disco disco;
     private BigDecimal valorPago;
     private BigDecimal valorCashback;
+    @ManyToOne
+    @JsonIgnore
+    private Venda venda;
     
     public VendaDisco(){
         
@@ -63,6 +67,14 @@ public class VendaDisco {
 
     public void setDisco(Disco disco) {
         this.disco = disco;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
 }

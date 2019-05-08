@@ -42,9 +42,10 @@ public class DiscoService implements CrudService<Disco> {
 
     @Override
     @Transactional
-    public void novo(Disco disco) {
+    public Disco novo(Disco disco) {
         try {
             discoRepository.save(disco);
+            return disco;
         } catch (DataIntegrityViolationException e) {
             throw new DuplicateDataException("Erro ao criar disco: outro disco com mesmo código já foi cadastrado.");
         }
@@ -57,7 +58,7 @@ public class DiscoService implements CrudService<Disco> {
 
     public Disco procurar(Disco disco) {
         Optional<Disco> discoOptional = discoRepository.findById(disco.getId());
-        if(discoOptional.isPresent()){
+        if (discoOptional.isPresent()) {
             return discoOptional.get();
         }
         throw new NotFoundException("Disco não cadastrado no sistema");

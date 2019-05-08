@@ -5,8 +5,8 @@ import br.com.beblue.desafio.model.Disco;
 import br.com.beblue.desafio.model.Venda;
 import br.com.beblue.desafio.model.VendaDisco;
 import br.com.beblue.desafio.service.VendaService;
-import br.com.beblue.desafio.util.Messages.MensagemError;
-import br.com.beblue.desafio.util.Messages.Message.Messages;
+import br.com.beblue.desafio.util.messages.MensagemError;
+import br.com.beblue.desafio.util.messages.Messages;
 import br.com.beblue.desafio.util.TryCatchDefaultRest;
 import br.com.beblue.desafio.validator.VendaValidator;
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ public class VendaRestController {
         binder.addValidators(vendaValidator);
     }
 
+    /* Cadastra nova venda */
     @PostMapping("nova")
     public ResponseEntity<ResponseDTO> novaVenda(@Valid @RequestBody Venda venda, BindingResult result) {
         if (result.hasErrors()) {
@@ -63,6 +64,7 @@ public class VendaRestController {
                 .execute(() -> vendaService.novo(venda));
     }
 
+    /* Gera 20 vendas automaticamente */ 
     @GetMapping
     public String gerarVendas() {
         Venda venda = new Venda();
@@ -77,6 +79,7 @@ public class VendaRestController {
         return "Sucesso! Vendas geradas.";
     }
 
+    /* Busca vendas filtrando e ordenando por data */
     @GetMapping("/buscar")
     public Page<Venda> buscar(
             @RequestParam("data-inicio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
@@ -87,6 +90,7 @@ public class VendaRestController {
 
     }
 
+    /* Busca venda pelo identificador */
     @GetMapping("/buscar/{id}")
     public Venda buscarPorId(Venda venda) {
         return vendaService.procurar(venda);

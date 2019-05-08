@@ -1,6 +1,6 @@
 package br.com.beblue.desafio.dto;
 
-import br.com.beblue.desafio.util.Messages.Mensagem;
+import br.com.beblue.desafio.util.messages.Mensagem;
 import java.util.ArrayList;
 import java.util.List;
 

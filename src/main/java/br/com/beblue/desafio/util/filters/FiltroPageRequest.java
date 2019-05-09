@@ -1,6 +1,5 @@
 package br.com.beblue.desafio.util.filters;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
 /**

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,7 +23,7 @@ public class VendaDisco {
     private Long id;
     @ManyToOne
     @JoinColumn(updatable = false)
-    @NotEmpty(message = "{field.required}")
+    @NotNull(message = "{field.required}")
     private Disco disco;
     private BigDecimal valorPago;
     private BigDecimal valorCashback;

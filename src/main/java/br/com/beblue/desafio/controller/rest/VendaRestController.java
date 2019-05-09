@@ -1,6 +1,7 @@
 package br.com.beblue.desafio.controller.rest;
 
 import br.com.beblue.desafio.dto.ResponseDTO;
+import br.com.beblue.desafio.exception.dados.InvalidValueException;
 import br.com.beblue.desafio.model.Venda;
 import br.com.beblue.desafio.service.VendaService;
 import br.com.beblue.desafio.util.messages.MensagemError;
@@ -62,6 +63,9 @@ public class VendaRestController {
     /* Busca vendas filtrando e ordenando por data */
     @GetMapping("/buscar")
     public Page<Venda> buscar(@Valid FiltroVenda vendaFiltro, BindingResult result) {
+         if (result.hasErrors()) {
+            throw new InvalidValueException("Erro nos parâmetros: " + result.toString());
+        }
         return vendaService.buscarPorData(vendaFiltro);
 
     }

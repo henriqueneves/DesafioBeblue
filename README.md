@@ -1,6 +1,6 @@
 # Desafio Beblue - Engenheiro Back-end
 
-Desafio para ingresso como desenvolvedor back-end no Beblue. Requisitos do projeto.
+Desafio para ingresso como desenvolvedor back-end no Beblue.
 
 ### Tecnologias
 - [Maven](https://maven.apache.org/)
@@ -13,6 +13,17 @@ Desafio para ingresso como desenvolvedor back-end no Beblue. Requisitos do proje
 
 ### Clone
 ```git clone https://github.com/henriqueneves/DesafioBeblue.git```
+
+### Build
+```mvn clean install```
+
+### Executar (Maven ou Docker)
+- Maven
+  ```mvn spring-boot:run```
+
+- Docker
+  ```docker build -t desafio .
+  docker run -p 8080:8080 desafio```
 
 ## Documentação
 
@@ -74,7 +85,7 @@ Desafio para ingresso como desenvolvedor back-end no Beblue. Requisitos do proje
   
 * Buscar venda por identificador
   * Content-Type: application/json
-  * GET: [http://localhost:8080/api/venda/buscar/**3**](http://localhost:8080/api/disco/buscar/5)
+  * GET: [http://localhost:8080/api/venda/buscar/**3**](http://localhost:8080/api/venda/buscar/3)
    
 ## Observações:
 

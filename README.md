@@ -1,6 +1,6 @@
 # Desafio Beblue - Engenheiro Back-end
 
-Desafio para ingresso como desenvolvedor back-end no Beblue.
+Desafio para ingresso como desenvolvedor back-end no Beblue: API REST para um loja de discos de vinil que resolveu oferecer cashback em suas vendas.
 
 ### Tecnologias
 - [Maven](https://maven.apache.org/)
@@ -50,7 +50,7 @@ Desafio para ingresso como desenvolvedor back-end no Beblue.
    * GET: [http://localhost:8080/api/disco/buscar/**5**](http://localhost:8080/api/disco/buscar/5)
    
 ### Vendas
-* Nova venda: cria uma venda. Deve-se enviar um JSON com os identificadores dos discos, seguindo o padrão do exemplo onde é criada uma nova venda de três discos (25, 45 e 100).
+* Nova venda: cria uma venda. Deve-se enviar um JSON com os identificadores dos discos, seguindo o padrão do exemplo onde é criada uma nova venda de três discos. Após a confirmação da venda, o método retorna um JSON que traz informações como o código da transação, valor total pago e valor de cashback.
   * Content-Type: application/json
   * POST: [http://localhost:8080/api/venda/nova](http://localhost:8080/api/venda/nova)
   * Exemplo BODY - RAW:

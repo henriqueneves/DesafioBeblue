@@ -9,6 +9,7 @@ import br.com.beblue.desafio.model.VendaDisco;
 import br.com.beblue.desafio.repository.CashbackRepository;
 import br.com.beblue.desafio.repository.VendaRepository;
 import br.com.beblue.desafio.util.DatasUtil;
+import br.com.beblue.desafio.util.filters.FiltroVenda;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,9 +82,9 @@ public class VendaService implements CrudService<Venda> {
         return disco.getPreco().multiply(new BigDecimal(cashback.getPorcentagem()).divide(new BigDecimal(100)));
     }
 
-    public Page<Venda> buscarPorData(Date dataInicio, Date dataFim, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.DESC, "registroDaVenda");
-        return vendaRepository.buscarPorData(dataInicio, dataFim, pageRequest);
+    public Page<Venda> buscarPorData(FiltroVenda filtroVenda) {
+        PageRequest pageRequest = PageRequest.of(filtroVenda.getPagina(), filtroVenda.getTamanho(), filtroVenda.getDirection(), filtroVenda.getOrdenarPor());
+        return vendaRepository.buscarPorData(filtroVenda.getDataInicial(), filtroVenda.getDataFinal(), pageRequest);
     }
     
 }

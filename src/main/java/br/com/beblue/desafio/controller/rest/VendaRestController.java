@@ -6,7 +6,7 @@ import br.com.beblue.desafio.service.VendaService;
 import br.com.beblue.desafio.util.messages.MensagemError;
 import br.com.beblue.desafio.util.messages.Messages;
 import br.com.beblue.desafio.util.TryCatchDefaultRest;
-import br.com.beblue.desafio.validator.VendaValidator;
+import br.com.beblue.desafio.util.filters.FiltroVenda;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -36,15 +36,7 @@ public class VendaRestController {
     private VendaService vendaService;
 
     @Autowired
-    private VendaValidator vendaValidator;
-
-    @Autowired
     private Messages messages;
-
-    @InitBinder("venda")
-    public void initBinder(WebDataBinder binder) {
-        binder.addValidators(vendaValidator);
-    }
 
     /* Cadastra nova venda */
     @PostMapping("nova")
@@ -69,12 +61,8 @@ public class VendaRestController {
 
     /* Busca vendas filtrando e ordenando por data */
     @GetMapping("/buscar")
-    public Page<Venda> buscar(
-            @RequestParam("data-inicio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
-            @RequestParam("data-fim") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim,
-            @RequestParam(value = "pagina", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "tamanho", required = false, defaultValue = "10") int size) {
-        return vendaService.buscarPorData(dataInicio, dataFim, page, size);
+    public Page<Venda> buscar(@Valid FiltroVenda vendaFiltro, BindingResult result) {
+        return vendaService.buscarPorData(vendaFiltro);
 
     }
 

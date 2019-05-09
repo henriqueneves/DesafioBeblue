@@ -9,8 +9,8 @@ import java.util.List;
  * @author henri
  */
 public class ResponseDTO {
-    
-     private Object data;
+
+    private Object data;
     private Mensagem mensagem;
     private List<String> erros = new ArrayList();
 
@@ -50,5 +50,5 @@ public class ResponseDTO {
 
         return this;
     }
-    
+
 }

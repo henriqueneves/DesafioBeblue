@@ -27,7 +27,9 @@ Desafio para ingresso como desenvolvedor back-end no Beblue. Requisitos do proje
   
 * Busca paginada: retorna N discos de determinado gênero utilizando filtros
   * Content-Type: application/json
-  * GET: [http://localhost:8080/api/disco/buscar?genero=**rock**&pagina=**1**&tamanho=**10**](http://localhost:8080/api/disco/buscar?genero=rock&pagina=1&tamanho=10)
+  * Parâmetros obrigatórios: generoMusical
+  * Parâmetros opcionais: pagina, tamanho, ordenarPor, ordem  
+  * GET: [http://localhost:8080/api/disco/buscar?generoMusical=**rock**&pagina=**1**&tamanho=**10**&ordernarPor=**nome**&ordem=**ASC**](http://localhost:8080/api/disco/buscar?generoMusical=rock&pagina=1&tamanho=10&ordernarPor=nome&ordem=ASC)
   
  * Buscar disco por identificador
    * Content-Type: application/json
@@ -66,7 +68,9 @@ Desafio para ingresso como desenvolvedor back-end no Beblue. Requisitos do proje
   
 * Busca paginada: retorna de forma paginada N vendas filtrando por data de início e fim
   * Content-Type: application/json
-  * GET: [http://localhost:8080/api/venda/buscar?data-inicio=**01/05/2019**&data-fim=**20/05/2019**&pagina=**1**&tamanho=**10**](http://localhost:8080/api/venda/buscar?data-inicio=01/05/2019&data-fim=20/05/2019&pagina=1&tamanho=10)
+  * Parâmetros obrigatórios: dataInicial, dataFinal
+  * Parâmetros opcionais: pagina, tamanho, ordenarPor, ordem  
+  * GET: [http://localhost:8080/api/venda/buscar?dataInicial=**2019-05-01**&dataFinal=**2019-05-20**&pagina=**0**&tamanho=**10**&ordenarPor=**registroDaVenda**&ordem=**DESC**](http://localhost:8080/api/venda/buscar?dataInicio=2019-05-01&dataFinal=2019-05-20&pagina=0&tamanho=10&ordenarPor=registroDaVenda&ordem=DESC)
   
 * Buscar venda por identificador
   * Content-Type: application/json

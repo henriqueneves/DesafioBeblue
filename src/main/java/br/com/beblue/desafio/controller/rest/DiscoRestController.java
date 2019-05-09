@@ -1,13 +1,17 @@
 package br.com.beblue.desafio.controller.rest;
 
 import br.com.beblue.desafio.dto.ResponseDTO;
+import br.com.beblue.desafio.exception.dados.InvalidValueException;
 import br.com.beblue.desafio.model.Disco;
 import br.com.beblue.desafio.service.DiscoService;
 import br.com.beblue.desafio.util.TryCatchDefaultRest;
+import br.com.beblue.desafio.util.filters.FiltroDisco;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,11 +43,11 @@ public class DiscoRestController {
 
     /* Busca de forma paginada os discos cadastrados no sistema, filtrando por genero e ordenando por título */
     @GetMapping("/buscar")
-    public Page<Disco> buscar(
-            @RequestParam("genero") String genero,
-            @RequestParam(value = "pagina", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "tamanho", required = false, defaultValue = "10") int size) {
-        return discoService.buscarPorGenero(genero, page, size);
+    public Page<Disco> buscar(@Valid FiltroDisco filtroDisco, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new InvalidValueException("Erro nos parâmetros: " + result.toString());
+        }
+        return discoService.buscarPorGenero(filtroDisco);
 
     }
 

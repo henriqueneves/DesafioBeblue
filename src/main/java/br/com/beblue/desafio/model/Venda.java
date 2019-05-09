@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "venda")
+    @NotEmpty(message = "{field.required}")
     private List<VendaDisco> vendaDiscos = new ArrayList();
     private BigDecimal valorTotal;
     private BigDecimal cashbackTotal;

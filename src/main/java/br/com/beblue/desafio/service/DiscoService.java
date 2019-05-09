@@ -7,6 +7,7 @@ import br.com.beblue.desafio.model.Disco;
 import br.com.beblue.desafio.model.GeneroMusical;
 import br.com.beblue.desafio.repository.DiscoRepository;
 import br.com.beblue.desafio.repository.GeneroMusicalRepository;
+import br.com.beblue.desafio.util.filters.FiltroDisco;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,9 @@ public class DiscoService implements CrudService<Disco> {
         throw new NotFoundException("Disco não cadastrado no sistema");
     }
 
-    public Page<Disco> buscarPorGenero(String genero, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "nome");
-        return discoRepository.buscarPorGenero(generoMusicalService.buscarPorNome(genero.toUpperCase()), pageRequest);
+    public Page<Disco> buscarPorGenero(FiltroDisco filtroDisco) {
+        PageRequest pageRequest = PageRequest.of(filtroDisco.getPagina(), filtroDisco.getTamanho(), filtroDisco.getDirection(), filtroDisco.getOrdenarPor());
+        return discoRepository.buscarPorGenero(generoMusicalService.buscarPorNome(filtroDisco.getGeneroMusical()), pageRequest);
     }
 
     @Transactional

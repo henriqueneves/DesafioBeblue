@@ -19,11 +19,14 @@ Desafio para ingresso como desenvolvedor back-end no Beblue.
 
 ### Executar (Maven ou Docker)
 - Maven
+
   ```mvn spring-boot:run```
 
 - Docker
-  ```docker build -t desafio .
-  docker run -p 8080:8080 desafio```
+
+  ```docker build -t desafio .```
+  
+  ```docker run -p 8080:8080 desafio```
 
 ## Documentação
 
